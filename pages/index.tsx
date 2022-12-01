@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import options from "../data/options";
 
 export default function Home() {
 	const [weather, setWeather] = useState("");
 	const [precip, setPrecip] = useState("");
 	const [rain, setRain] = useState("");
-	const [resp, setResp] = useState([]);
+	//const [resp, setResp] = useState([]);
 	const [currentWeater, setCurrentWeather] = useState(true);
 
 	useEffect(() => {
 		try {
 			axios.get("https://api.open-meteo.com/v1/forecast?latitude=-23.50&longitude=-47.46&hourly=temperature_2m,precipitation&current_weather=true&timezone=America%2FSao_Paulo&start_date=2022-12-01&end_date=2022-12-15").then(res => {
 				console.log(res.data);
-				setResp(res.data.hourly.time);
+				//setResp(res.data.hourly.time);
 				setWeather(res.data.current_weather.temperature);
 				//setPrecipitation(res.data.)
 			});
@@ -39,7 +40,7 @@ export default function Home() {
 	return (
 		<div id="main">
 			<select onChange={(e) => handleWeather(e.target.value)}>
-				{resp.map((hour, i) => (<option key={hour} value={i}>{hour}</option>))}
+				{options.map((hour, i) => (<option key={hour} value={i}>{hour}</option>))}
 			</select>
 			<h1>{currentWeater ? "Weather Now in Sorocaba: " : "Future Weather: "} {weather} °C</h1>
 			{currentWeater ? false : (<h1>Precipitation: {precip} / {rain}</h1>)}
