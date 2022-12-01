@@ -1,4 +1,4 @@
-const options = [
+const options: string[] = [
 	"01/12/22 - 00:00H",
 	"01/12/22 - 01:00H",
 	"01/12/22 - 02:00H",

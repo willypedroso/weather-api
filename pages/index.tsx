@@ -7,10 +7,14 @@ export default function Home() {
 	const [precip, setPrecip] = useState("");
 	const [rain, setRain] = useState("");
 	const [currentWeater, setCurrentWeather] = useState(true);
+	const day1 = new Date().getDate();
+	const month1 = new Date().getMonth() + 1;
+	const day2 = 15;
+	const month2 = 12;
 
 	useEffect(() => {
 		try {
-			axios.get("https://api.open-meteo.com/v1/forecast?latitude=-23.50&longitude=-47.46&hourly=temperature_2m,precipitation&current_weather=true&timezone=America%2FSao_Paulo&start_date=2022-12-01&end_date=2022-12-15").then(res => {
+			axios.get(`https://api.open-meteo.com/v1/forecast?latitude=-23.50&longitude=-47.46&hourly=temperature_2m,precipitation&current_weather=true&timezone=America%2FSao_Paulo&start_date=2022-${month1}-${day1}&end_date=2022-${month2}-${day2}`).then(res => {
 				console.log(res.data);
 				setWeather(res.data.current_weather.temperature);
 			});
@@ -21,7 +25,7 @@ export default function Home() {
 
 
 	async function handleWeather(time: string) {
-		try {const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=-23.50&longitude=-47.46&hourly=temperature_2m,precipitation&current_weather=true&timezone=America%2FSao_Paulo&start_date=2022-12-01&end_date=2022-12-15");
+		try {const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=-23.50&longitude=-47.46&hourly=temperature_2m,precipitation&current_weather=true&timezone=America%2FSao_Paulo&start_date=2022-${month1}-${day1}&end_date=2022-${month2}-${day2}`);
   
 			const data = await res.json();
 			setWeather(data.hourly.temperature_2m[time]);
